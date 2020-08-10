@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<title>Ducky Task Master</title>
+{% endblock %}
+
+{% block body %} 
+<div  class="content", style="text-align: center;">
+
+    <h1 style="text-align: center; color: maroon;">Task Master</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center; font-weight: bolder; font-style: oblique;">There is no task. Create one below!</h4>
+    {% else %}
+
+    <table class="center" border=1  style="width:600px; height: 100px; border:1px solid rgb(0, 0, 0);margin-left:auto;margin-right:auto;">
+        <tr>
+            <th style="font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: mediumturquoise;"> Task </th>
+            <th style="font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: peru;"> Added </th>
+            <th style="font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: orangered;"> Actions </th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}", style="color: lightcoral;">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}", style="color: lightseagreen;">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <br>
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Gimme Task lol!" value style="font-weight: bold; font-style: oblique;">
+        </form>
+    </div>
+</div>    
+{% endblock %}
